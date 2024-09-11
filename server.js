@@ -1,12 +1,30 @@
 //using express 
 const express = require('express')
+const mongoose = require('mongoose')
 
 //create an instance of express
 const app = express()
 app.use(express.json())
 
-//Sample in memory storage for todos items
-let todos = []
+//connecting database
+mongoose.connect('mongodb://localhost:27017/todo')
+.then(() => {
+    console.log('DB conected');
+    
+})
+.catch((err) => {
+    console.log(err);
+})
+
+//creating schema
+const todoSchema = new mongoose.Schema({
+    title: String,
+    description: String
+})
+
+//creating model
+const todoModel = mongoose.model('Todo', todoSchema)
+
 
 //Create a new todo item
 app.post('/todos', (req, res) => {
