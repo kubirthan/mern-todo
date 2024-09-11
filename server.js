@@ -3,6 +3,7 @@ const express = require('express')
 
 //create an instance of express
 const app = express()
+app.use(express.json())
 
 //Sample in memory storage for todos items
 let todos = []
@@ -20,6 +21,11 @@ app.post('/todos', (req, res) => {
     console.log(todos);
     res.status(201).json(newTodo)
     
+})
+
+//get all items
+app.get('/todos', (req, res) => {
+    res.json(todos)
 })
 
 //Start the server
