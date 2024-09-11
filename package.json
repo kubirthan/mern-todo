@@ -1,0 +1,14 @@
+{
+  "name": "todo-backend",
+  "version": "1.0.0",
+  "description": "to do list app using mern",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "km kubi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.20.0"
+  }
+}
