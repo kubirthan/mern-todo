@@ -7,10 +7,9 @@ const app = express()
 app.use(express.json())
 
 //connecting database
-mongoose.connect('mongodb://localhost:27017/todo')
+mongoose.connect('mongodb://127.0.0.1:27017/todo')
 .then(() => {
     console.log('DB conected');
-    
 })
 .catch((err) => {
     console.log(err);
@@ -27,17 +26,17 @@ const todoModel = mongoose.model('Todo', todoSchema)
 
 
 //Create a new todo item
-app.post('/todos', (req, res) => {
+app.post('/todos', async(req, res) => {
     const {title, description} = req.body
-    const newTodo = {
-        id:todos.length + 1,
-        title,
-        description
+    
+    try {
+        const newTodo = new todoModel({title, description})
+        await newTodo.save()
+        res.status(201).json(newTodo)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json("Internal server error")
     }
-
-    todos.push(newTodo)
-    console.log(todos);
-    res.status(201).json(newTodo)
     
 })
 
