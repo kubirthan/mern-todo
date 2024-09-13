@@ -17,8 +17,14 @@ mongoose.connect('mongodb://127.0.0.1:27017/todo')
 
 //creating schema
 const todoSchema = new mongoose.Schema({
-    title: String,
-    description: String
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    }
 })
 
 //creating model
@@ -35,7 +41,7 @@ app.post('/todos', async(req, res) => {
         res.status(201).json(newTodo)
     } catch (error) {
         console.log(error);
-        res.status(500).json("Internal server error")
+        res.status(500).json({message: error.message})
     }
     
 })
